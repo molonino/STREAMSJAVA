@@ -20,7 +20,7 @@ public class LeeFichero {
 "\n" +
 "	  Cartelera de Cinefbmoll\n" +
 "\n" +
-"----------------------------------------------"+"\n\n" ; 
+"----------------------------------------------"+"\n\n----" ; 
 //variable para guardar el texto
         //lista con las opciones que he de pintar en el nuevo documento
         String[] campos = {"Año: ", "Director: ", "Duración: ", "Sinopsis: ", 
@@ -36,23 +36,37 @@ public class LeeFichero {
             //crear una variable de tipo int donde se guardara los caracteres
             int unCaracter;
             int i = 0;
+            int j = 10;
             while ((unCaracter = archivo.read()) != -1){
                 char c = (char)unCaracter;
                 if ( c != '#' && c!='{'){
-                    resultado+=c;
+                    
+                    if (i == 4){
+                        j+=1;
+                        resultado+=c;
+                        if(j>50){
+                            resultado+="\n";
+                            j=0;
+                        }
+                    }else{
+                       resultado+=c; 
+                    }
                 }else if(c == '#'){
                     if(i==3){
-                        resultado+=" minutos";  
+                        resultado+=" minutos";
+                        
                     }else if (i==0){
 //int a = resultado.lastIndexOf("\n");
-                         resultado.replaceFirst("\n","");
+                        resultado+="----\n";
                     }
                     
                     resultado+="\n"+ campos[i];
                         
-                     i = (i+1)%6;                      
+                     i = (i+1)%6;
+                     
                 }else if (c == '{'){
-                    resultado+="\n\n";
+                    resultado+="\n\n----";
+                    j=10;
                 }
                 
             }
